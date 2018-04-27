@@ -1,0 +1,21 @@
+{
+  "name": "graphql-react-subscription",
+  "version": "0.1.1",
+  "description": "A GraphQL subscription client for graphql-react.",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pur3miish/graphql-react-subscription.git"
+  },
+  "author": "pur3miish",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/pur3miish/graphql-react-subscription/issues"
+  },
+  "homepage": "https://github.com/pur3miish/graphql-react-subscription#readme"
+}
