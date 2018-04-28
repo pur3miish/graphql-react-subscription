@@ -18,4 +18,34 @@
     "url": "https://github.com/pur3miish/graphql-react-subscription/issues"
   },
   "homepage": "https://github.com/pur3miish/graphql-react-subscription#readme"
+  "eslintConfig": {
+    "parser": "babel-eslint",
+    "env": {
+      "es6": true,
+      "node": true,
+      "browser": true
+    },
+    "extends": [
+      "eslint:recommended",
+      "plugin:react/recommended"
+    ],
+    "plugins": [
+      "react",
+      "prettier"
+    ],
+    "rules": {
+      "curly": [
+        "error",
+        "multi"
+      ],
+      "prefer-destructuring": [
+        "error",
+        {
+          "array": true,
+          "object": true
+        }
+      ],
+      "prettier/prettier": "error"
+    }
+  }
 }
