@@ -1,27 +1,36 @@
 {
+  "author": "pur3miish",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/pur3miish/graphql-react-subscription/issues"
+  },
   "keywords": [
     "graphql",
     "subscription",
     "react",
     "client"
   ],
+  "homepage": "https://github.com/pur3miish/graphql-react-subscription#readme",
   "name": "graphql-react-subscription",
   "version": "0.1.1",
   "description": "A GraphQL subscription client for graphql-react.",
-  "main": "index.js",
-  "dependencies": {},
-  "devDependencies": {},
+  "engines": {
+    "node": ">=7.6"
+  },
+  "main": "lib",
+  "module": "lib/index.mjs",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "clean": "rimraf lib",
+    "prebuild": "npm run clean",
+    "build": "run-p build:*",
+    "build:js": "babel src -d lib",
+    "build:mjs": "cross-env ESM=true babel src -d lib --keep-file-extension",
+    "postbuild": "prettier 'lib/**/*.{mjs,js}' --write"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/pur3miish/graphql-react-subscription.git"
   },
-  "author": "pur3miish",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/pur3miish/graphql-react-subscription/issues"
   "peerDependencies": {
     "react": "^16.3.2",
     "graphql-react": "^1.0.0-alpha.5"
@@ -58,8 +67,12 @@
     "node_modules",
     "lib",
     ".next"
+  ],
+  "prettier": {
+    "proseWrap": "never",
+    "semi": false,
+    "singleQuote": true
   },
-  "homepage": "https://github.com/pur3miish/graphql-react-subscription#readme"
   "eslintConfig": {
     "parser": "babel-eslint",
     "env": {
