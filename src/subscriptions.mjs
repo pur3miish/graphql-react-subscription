@@ -1,6 +1,6 @@
 import React from 'react'
 import propTypes from 'prop-types'
-import fnv1a from '@sindresorhus/fnv1a'
+import fnv1a from 'fnv1a'
 import { MessageTypes } from './config.mjs'
 import { print } from 'graphql/language/printer'
 import { isString } from './helpers.mjs'
