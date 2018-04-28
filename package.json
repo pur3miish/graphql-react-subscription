@@ -22,6 +22,11 @@
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/pur3miish/graphql-react-subscription/issues"
+  "eslintIgnore": [
+    "!.*",
+    "node_modules",
+    "lib",
+    ".next"
   },
   "homepage": "https://github.com/pur3miish/graphql-react-subscription#readme"
   "eslintConfig": {
