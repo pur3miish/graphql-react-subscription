@@ -20,6 +20,4 @@ export const MessageTypes = {
   KEEP_ALIVE: 'keepalive'
 }
 
-export const GRAPHQL_WS = 'graphql-ws'
-export const GRAPHQL_SUBSCRIPTIONS = 'graphql-subscriptions'
 export const WS_TIMEOUT = 30000
