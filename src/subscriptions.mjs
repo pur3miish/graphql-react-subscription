@@ -3,7 +3,8 @@ import propTypes from 'prop-types'
 import fnv1a from 'fnv1a'
 import { MessageTypes } from './config.mjs'
 import { print } from 'graphql/language/printer'
-import { isString } from './helpers.mjs'
+import { isString, _global, ssr } from './helpers.mjs'
+import Backoff from 'backo2'
 
 export const { Provider, Consumer } = React.createContext()
 
@@ -56,7 +57,7 @@ export class WebSocketProvider extends React.Component {
 
 export class GraphQLSocket extends React.Component {
   static propTypes = {
-    socket: propTypes.instanceOf(WebSocket).isRequired,
+    socket: propTypes.object.isRequired,
     variables: propTypes.object,
     query: propTypes.string.isRequired,
     loadOnMount: propTypes.bool,
@@ -68,29 +69,30 @@ export class GraphQLSocket extends React.Component {
     this.ws = props.socket
   }
 
+  get status() {
+    return !this.ws ? this.ws.CLOSED : this.ws.readyState
+  }
+
   componentDidMount() {
     this.props.loadOnMount && this.load()
+  }
+
+  componentWillUnmount() {
+    this.unsubscribe()
   }
 
   id = fnv1a(this.props.query)
   unsentMessagesQueue = []
 
   load() {
-    this.ws.onopen = () =>
+    this.ws.onopen = () => {
       this.sendMessage(undefined, MessageTypes.GQL_CONNECTION_INIT, {})
+    }
     this.ws.onmessage = ({ data }) => this.processReceivedData(data)
-    this.ws.onclose = () => this.unsubscribe()
+
     this.ws.onerror = e => {
       throw new Error(e)
     }
-  }
-
-  render() {
-    return this.state
-      ? this.props.children({
-          data: this.state[this.id]
-        })
-      : this.props.children()
   }
 
   sendMessage = (id, type, payload) =>
@@ -115,8 +117,7 @@ export class GraphQLSocket extends React.Component {
    * @param {Object} message - graphql message to send.
    */
   preFlightMsgCheck(message) {
-    let serializedMessage = JSON.stringify(message)
-
+    const serializedMessage = JSON.stringify(message)
     switch (this.status) {
       case this.ws.OPEN:
         try {
@@ -158,43 +159,28 @@ export class GraphQLSocket extends React.Component {
       throw new Error(`Message must be JSON-parseable. Got: ${receivedData}`)
     }
 
-    if (
-      [
-        MessageTypes.GQL_DATA,
-        MessageTypes.GQL_COMPLETE,
-        MessageTypes.GQL_ERROR
-      ].indexOf(parsedMessage.type) !== -1 &&
-      !this.state[parsedMessage.id]
-    ) {
-      this.unsubscribe(parsedMessage.id)
-      return
-    }
-
     switch (parsedMessage.type) {
       case MessageTypes.GQL_CONNECTION_ACK:
         this.subscribe()
         break
-
       case MessageTypes.GQL_COMPLETE:
-        delete this.state[parsedMessage.id]
+        this.setState({})
+        this.id = null
         break
-
       case MessageTypes.GQL_DATA:
-        // Will replace with Object.value when supported - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_objects/Object/values
         if (parsedMessage.id == this.id)
           this.setState({
             [parsedMessage.id]: [
               ...this.state[parsedMessage.id],
-              parsedMessage.payload.data[
-                Object.keys(parsedMessage.payload.data)[0]
-              ]
+              ...Object.values(parsedMessage.payload.data)
             ]
           })
         break
-
       case MessageTypes.GQL_ERROR:
-        this.updateErrors({ graphQLErrors: parsedMessage.payload })
-        delete this.state[parsedMessage.id]
+        this.setState({ [this.id]: ['An unknown error has occured.'] })
+        break
+
+      case MessageTypes.GQL_CONNECTION_KEEP_ALIVE:
         break
 
       default:
@@ -202,11 +188,9 @@ export class GraphQLSocket extends React.Component {
     }
   }
 
-  unsubscribe = () =>
-    this.sendMessage(this.id, MessageTypes.GQL_STOP, undefined)
-
-  get status() {
-    return !this.ws ? this.ws.CLOSED : this.ws.readyState
+  unsubscribe = () => {
+    if (this.ws !== null)
+      this.sendMessage(this.id, MessageTypes.GQL_STOP, undefined)
   }
 
   subscribe = () => {
@@ -215,6 +199,15 @@ export class GraphQLSocket extends React.Component {
       query: this.props.query,
       variables: null
     })
+  }
+
+  render() {
+    return this.state
+      ? this.props.children({
+          data: this.state[this.id],
+          close: this.subscribe
+        })
+      : this.props.children()
   }
 }
 
