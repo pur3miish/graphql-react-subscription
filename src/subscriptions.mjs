@@ -7,6 +7,53 @@ import { isString } from './helpers.mjs'
 
 export const { Provider, Consumer } = React.createContext()
 
+export class WebSocketProvider extends React.Component {
+  static propTypes = {
+    url: propTypes.string.isRequired,
+    children: propTypes.object.isRequired,
+    websocket: propTypes.object
+  }
+
+  handleReconnect = () => {}
+
+  constructor(props) {
+    super(props)
+    this.url = props.url
+    if (!this.url) throw new Error('Provide a websocket url.')
+
+    this.websocket = props.websocket
+
+    if (!ssr) {
+      this.socket = this.websocket || _global.WebSocket || _global.MozWebSocket
+      if (!this.socket)
+        throw new Error(
+          'No native websocket available, please pass your custom websocket implimentation as websocket prop.'
+        )
+      this.connect()
+    }
+  }
+
+  backoff = new Backoff({ jitter: 0.5 })
+  reconnecting = false
+
+  connect() {
+    this.client = new this.socket(this.url, 'graphql-ws')
+  }
+
+  componentWillUnmount() {
+    this.client.send('{"type":"connection_terminate","payload":null}')
+  }
+
+  render() {
+    return <Provider value={this.client}>{this.props.children}</Provider>
+  }
+
+  tryReconnect() {
+    if (this.reconnecting)
+      setTimeout(() => this.load(), this.backoff.duration())
+  }
+}
+
 export class GraphQLSocket extends React.Component {
   static propTypes = {
     socket: propTypes.instanceOf(WebSocket).isRequired,
