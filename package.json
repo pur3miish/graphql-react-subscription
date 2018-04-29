@@ -26,7 +26,9 @@
     "build": "run-p build:*",
     "build:js": "babel src -d lib",
     "build:mjs": "cross-env ESM=true babel src -d lib --keep-file-extension",
-    "postbuild": "prettier 'lib/**/*.{mjs,js}' --write"
+    "postbuild": "prettier 'lib/**/*.{mjs,js}' --write",
+    "watch": "run-p watch:*",
+    "watch:build": "run-p 'build:* -- --skip-initial-build --watch'"
   },
   "repository": {
     "type": "git",
