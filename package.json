@@ -19,6 +19,7 @@
   },
   "main": "lib",
   "module": "lib/index.mjs",
+  "browserslist": ">1%",
   "scripts": {
     "clean": "rimraf lib",
     "prebuild": "npm run clean",
