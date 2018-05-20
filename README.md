@@ -153,9 +153,9 @@ const Notification = () => (
              }
          }`
      }>
-     {({ subscribe, parseError, graphQLErrors, data }) => (
+     {({ subscribe, parseError, data, readyState }) => (
          <>
-           {(parseError || graphQLErrors) && <strong>Error</strong>}
+           {parseError && <strong>Error</strong>}
            <ul>
                {
                  data.forEach(({ id, message, from }) =>
@@ -181,13 +181,13 @@ Type: [function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Sta
 
 -   `subscribe` **[function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)** Connects a subscription on demand.
 -   `parseError` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Parse error message.
--   `graphQLErrors` **[object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** GraphQL response errors.
 -   `data` **[object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** GraphQL response data.
+-   `readyState` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)?** The ws readyState.
 
 **Examples**
 
 ```javascript
-({ subscribe, parseError, graphQLErrors, data }) => (
+({ subscribe, parseError, data, readyState }) => (
   <aside>
     <button onClick={subscribe}>connect</button>
     {(parseError || graphQLErrors) && <strong>Error!</strong>}
