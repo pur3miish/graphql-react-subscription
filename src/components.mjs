@@ -80,15 +80,17 @@ export class GraphQLSubscribe extends React.Component {
   handleUpdateRequestCache = requestCache => this.setState({ ...requestCache })
 
   componentDidMount() {
-    !ssr &&
-      this.subscribeOnMount &&
-      this.graphqlSocket.subscribe(
-        this.url,
-        this.query,
-        this.variables,
-        this.keyId,
-        this.handleUpdateRequestCache
-      )
+    !ssr && this.subscribeOnMount && this.subscribe()
+  }
+
+  subscribe = () => {
+    this.graphqlSocket.subscribe(
+      this.url,
+      this.query,
+      this.variables,
+      this.keyId,
+      this.handleUpdateRequestCache
+    )
   }
 
   unsubscribe = () =>
@@ -101,7 +103,8 @@ export class GraphQLSubscribe extends React.Component {
 
   render() {
     return this.props.children({
-      ...this.state
+      ...this.state,
+      subscribe: this.subscribe
     })
   }
 }
@@ -130,9 +133,9 @@ export class GraphQLSubscribe extends React.Component {
  *              }
  *          }`
  *      }>
- *      {({ subscribe, parseError, graphQLErrors, data }) => (
+ *      {({ subscribe, parseError, data, readyState }) => (
  *          <>
- *            {(parseError || graphQLErrors) && <strong>Error</strong>}
+ *            {parseError && <strong>Error</strong>}
  *            <ul>
  *                {
  *                  data.forEach(({ id, message, from }) =>
@@ -166,11 +169,11 @@ Subscribe.propTypes = {
  * @typedef {function} SubscribeRender
  * @param {function} subscribe Connects a subscription on demand.
  * @param {string} [parseError] Parse error message.
- * @param {object} [graphQLErrors] GraphQL response errors.
  * @param {object} [data] GraphQL response data.
+ * @param {number} [readyState] The ws readyState.
  * @returns {ReactElement} React virtual DOM element.
  * @example
- * ({ subscribe, parseError, graphQLErrors, data }) => (
+ * ({ subscribe, parseError, data, readyState }) => (
  *   <aside>
  *     <button onClick={subscribe}>connect</button>
  *     {(parseError || graphQLErrors) && <strong>Error!</strong>}
