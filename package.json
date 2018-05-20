@@ -12,7 +12,7 @@
   ],
   "homepage": "https://github.com/pur3miish/graphql-react-subscription#readme",
   "name": "graphql-react-subscription",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "A GraphQL subscription client for graphql-react.",
   "engines": {
     "node": ">=7.6"
@@ -28,7 +28,8 @@
     "build:mjs": "cross-env ESM=true babel src -d lib --keep-file-extension",
     "postbuild": "prettier 'lib/**/*.{mjs,js}' --write",
     "watch": "run-p watch:*",
-    "watch:build": "run-p 'build:* -- --skip-initial-build --watch'"
+    "watch:build": "run-p 'build:* -- --skip-initial-build --watch'",
+    "jsdoc": "documentation readme src -s API -c documentation.json --sort-order alpha -q"
   },
   "repository": {
     "type": "git",
@@ -49,12 +50,11 @@
     "babel-plugin-transform-object-entries": "^1.0.0",
     "babel-plugin-transform-replace-object-assign": "^1.0.0",
     "cross-env": "^5.1.4",
+    "documentation": "^6.3.3",
     "eslint": "^4.19.1",
     "eslint-plugin-prettier": "^2.6.0",
     "eslint-plugin-react": "^7.7.0",
-    "eventemitter3": "^3.1.0",
     "graphql": "^0.13.2",
-    "graphql-tools": "^3.0.0",
     "husky": "^0.14.3",
     "isomorphic-unfetch": "^2.0.0",
     "npm-run-all": "^4.1.2",
@@ -64,7 +64,6 @@
     "rimraf": "^2.6.2"
   },
   "dependencies": {
-    "backo2": "^1.0.2",
     "fnv1a": "^1.0.1",
     "prop-types": "^15.6.1"
   },
@@ -95,6 +94,13 @@
       "prettier"
     ],
     "rules": {
+      "require-jsdoc": "warn",
+      "valid-jsdoc": [
+        "error",
+        {
+          "requireReturn": false
+        }
+      ],
       "curly": [
         "error",
         "multi"
