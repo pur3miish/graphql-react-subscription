@@ -5,12 +5,7 @@ const {
 module.exports = {
   comments: false,
   presets: [
-    {
-      plugins: [
-        'babel-plugin-transform-replace-object-assign',
-        'babel-plugin-transform-object-entries'
-      ]
-    },
+    { plugins: ['babel-plugin-transform-replace-object-assign'] },
     [
       '@babel/env',
       {
