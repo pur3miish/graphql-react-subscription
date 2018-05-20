@@ -1,8 +1,8 @@
 # graphql-react-subscription changelog
 
-
-## 0.1.2 graphql-react-subscription
+## 0.1.3 
+* Initial release.
+## 0.1.2
 * Not a working product.
-
 ## 0.1.1
-* Initial realease not a working product
+* Not a working product.
