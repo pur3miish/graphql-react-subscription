@@ -6,7 +6,7 @@ const ssr = typeof window === 'undefined'
 
 export const {
   /**
-   * A React component provides a {@link GraphQLSocket} instance in context for nested
+   * A React component provides a {@link GraphQLSocket} instance via {@link https://reactjs.org/docs/context.html React context} for nested
    * {@link Consumer} components to use.
    * @function
    * @param {GraphQLSocket} value A {@link GraphQLSocket} instance.
@@ -24,16 +24,19 @@ export const {
   Provider,
 
   /**
-   * A React component that gets the {@link GraphQLSocket} instance from context.
+   * A React component that gets the {@link GraphQLSocket} instance from the {@link https://reactjs.org/docs/context.html React context}
+   * provided by the {@link Provider}.
    * @function
    * @param {ConsumerRender} children Render function that receives a {@link GraphQLSocket} instance.
    * @returns {ReactElement} React virtual DOM element.
-   * @example <caption>A button component that resets the {@link GraphQL#cache GraphQL cache}.</caption>
+   * @example <caption>Subscribe component makes use of the {@link GraphQLSocket} instance passed via react context..</caption>
    * import { Consumer } from 'graphql-react'
    *
-   * const ResetSubscriptionsButton = () => (
+   * const Subscribe = props => (
    *   <Consumer>
-   *     {graphqlSocket => <button onClick={graphqlSocket.reset}>Reset cache</button>}
+   *     {graphqlSocket => (
+   *       <GraphQLSubscribe graphqlSocket={graphqlSocket} {...props} />
+   *     )}
    *   </Consumer>
    * )
    */
@@ -176,7 +179,7 @@ Subscribe.propTypes = {
  * ({ subscribe, parseError, data, readyState }) => (
  *   <aside>
  *     <button onClick={subscribe}>connect</button>
- *     {(parseError || graphQLErrors) && <strong>Error!</strong>}
+ *     {parseError && <strong>Error!</strong>}
  *     {data && <h1>{data.user.name}</h1>}
  *   </aside>
  * )

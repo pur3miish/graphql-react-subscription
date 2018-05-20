@@ -3,8 +3,9 @@ import fnv1a from 'fnv1a'
 import { MessageTypes } from './message-types.mjs'
 
 /**
- * @param websocket {@link https://github.com/websockets/ws Websocket instance}
+ * GraphQLSocket manages the websocket connections.
  * @param {number} wsTimeout specify the ws timeout duration.
+ * @param websocket {@link https://github.com/websockets/ws Websocket instance}
  * @override
  * @example
  * import { GraphQLSocket } from 'react-graphql-subscription'
