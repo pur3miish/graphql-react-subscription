@@ -1,6 +1,10 @@
 # graphql-react-subscription
 
-A GraphQL subscription client for graphql-react.
+A GraphQL subscription client for [graphql-react](https://github.com/jaydenseric/graphql-react).
+
+Inspired by [graphql-subscriptions](https://github.com/apollographql/graphql-subscriptions)
+
+Work in progress!
 
 ## API
 
