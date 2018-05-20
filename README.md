@@ -23,6 +23,8 @@ Work in progress!
 
 ### GraphQLSocket
 
+GraphQLSocket manages the websocket connections.
+
 **Parameters**
 
 -   `wsTimeout` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** specify the ws timeout duration. (optional, default `Infinity`)
@@ -38,7 +40,8 @@ const graphqlSocket = new GraphQLSocket()
 
 ### Consumer
 
-A React component that gets the [GraphQLSocket](#graphqlsocket) instance from context.
+A React component that gets the [GraphQLSocket](#graphqlsocket) instance from the [React context](https://reactjs.org/docs/context.html)
+provided by the [Provider](#provider).
 
 **Parameters**
 
@@ -46,14 +49,16 @@ A React component that gets the [GraphQLSocket](#graphqlsocket) instance from co
 
 **Examples**
 
-_A button component that resets the [GraphQL cache](GraphQL#cache)._
+_Subscribe component makes use of the [GraphQLSocket](#graphqlsocket) instance passed via react context.._
 
 ```javascript
 import { Consumer } from 'graphql-react'
 
-const ResetSubscriptionsButton = () => (
+const Subscribe = props => (
   <Consumer>
-    {graphqlSocket => <button onClick={graphqlSocket.reset}>Reset cache</button>}
+    {graphqlSocket => (
+      <GraphQLSubscribe graphqlSocket={graphqlSocket} {...props} />
+    )}
   </Consumer>
 )
 ```
@@ -99,7 +104,7 @@ The WebSocket Client and server communication messages.
 
 ### Provider
 
-A React component provides a [GraphQLSocket](#graphqlsocket) instance in context for nested
+A React component provides a [GraphQLSocket](#graphqlsocket) instance via [React context](https://reactjs.org/docs/context.html) for nested
 [Consumer](#consumer) components to use.
 
 **Parameters**
@@ -190,7 +195,7 @@ Type: [function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Sta
 ({ subscribe, parseError, data, readyState }) => (
   <aside>
     <button onClick={subscribe}>connect</button>
-    {(parseError || graphQLErrors) && <strong>Error!</strong>}
+    {parseError && <strong>Error!</strong>}
     {data && <h1>{data.user.name}</h1>}
   </aside>
 )
