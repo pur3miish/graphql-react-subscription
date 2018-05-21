@@ -1,6 +1,6 @@
 import React from 'react'
 import propTypes from 'prop-types'
-import { GraphQLSocket } from './graphql-socket.mjs'
+import { GraphQLSocket } from './graphql-socket'
 
 const ssr = typeof window === 'undefined'
 
