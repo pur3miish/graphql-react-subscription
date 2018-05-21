@@ -1,6 +1,6 @@
-import { isString, _global } from './helpers.mjs'
+import { isString, _global } from './helpers'
 import fnv1a from 'fnv1a'
-import { MessageTypes } from './message-types.mjs'
+import { MessageTypes } from './message-types'
 
 /**
  * GraphQLSocket manages the websocket connections.
