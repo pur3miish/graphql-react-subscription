@@ -24,11 +24,16 @@
   "main": "lib",
   "module": "lib/index.mjs",
   "engines": {
-    "node": ">=7.6"
+    "node": ">=10"
   },
   "browserslist": ">1%",
   "peerDependencies": {
     "react": "^16.3.0"
+  },
+  "dependencies": {
+    "fnv1a": "^1.0.1",
+    "object-assign": "^4.1.1",
+    "prop-types": "^15.6.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.0.0-beta.47",
@@ -38,6 +43,7 @@
     "@babel/preset-env": "^7.0.0-beta.47",
     "@babel/preset-react": "^7.0.0-beta.47",
     "babel-eslint": "^8.2.3",
+    "babel-plugin-transform-replace-object-assign": "^2.0.0-beta.0",
     "cross-env": "^5.1.5",
     "documentation": "^6.3.3",
     "eslint": "^4.19.1",
@@ -50,37 +56,35 @@
     "prettier": "^1.12.1",
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
-    "rimraf": "^2.6.2"
-  },
-  "dependencies": {
-    "babel-plugin-transform-replace-object-assign": "^2.0.0-beta.0",
-    "fnv1a": "^1.0.1",
-    "object-assign": "^4.1.1",
-    "prop-types": "^15.6.1"
+    "rimraf": "^2.6.2",
+    "size-limit": "^0.18.0"
   },
   "scripts": {
     "clean": "rimraf lib",
-    "prebuild": "npm run clean",
-    "build": "run-p build:*",
     "build:js": "babel src -d lib",
     "build:mjs": "cross-env ESM=true babel src -d lib --keep-file-extension",
-    "postbuild": "prettier 'lib/**/*.{mjs,js}' --write",
-    "watch": "run-p watch:*",
-    "watch:build": "run-p 'build:* -- --skip-initial-build --watch'",
-    "jsdoc": "documentation readme src -s API -c documentation.json --sort-order alpha -q"
+    "build:jsdoc": "documentation readme src -s API -c documentation.json --sort-order alpha -q",
+    "build:prettier": "prettier 'lib/**/*.{mjs,js}' readme.md --write",
+    "prewatch": "npm run build",
+    "lint:eslint": "eslint . --ext mjs,js",
+    "lint:prettier": "prettier '**/*.{json,md}' -l",
+    "lint:jsdoc": "documentation lint src",
+    "size": "size-limit",
+    "prepublishOnly": "npm-run-all clean -p build:mjs build:js build:jsdoc -s build:prettier -p lint:* size"
   },
   "lint-staged": {
     "*.{mjs,js}": "eslint",
     "*.{json,md}": "prettier -l"
   },
   "eslintIgnore": [
-    "!.*",
-    "node_modules",
-    "lib",
-    ".next"
+    "lib"
   ],
   "eslintConfig": {
     "parser": "babel-eslint",
+    "parserOptions": {
+      "sourceType": "script",
+      "ecmaVersion": 2018
+    },
     "env": {
       "es6": true,
       "node": true,
@@ -88,7 +92,9 @@
     },
     "extends": [
       "eslint:recommended",
-      "plugin:react/recommended"
+      "plugin:react/recommended",
+      "prettier",
+      "prettier/react"
     ],
     "plugins": [
       "react",
@@ -114,11 +120,33 @@
         }
       ],
       "prettier/prettier": "error"
-    }
+    },
+    "overrides": [
+      {
+        "files": [
+          "*.mjs"
+        ],
+        "parserOptions": {
+          "sourceType": "module"
+        }
+      }
+    ]
   },
   "prettier": {
     "proseWrap": "never",
-    "semi": false,
-    "singleQuote": true
-  }
+    "singleQuote": true,
+    "semi": false
+  },
+  "size-limit": [
+    {
+      "name": "CJS",
+      "path": "lib/index.js",
+      "limit": "4 KB"
+    },
+    {
+      "name": "ESM",
+      "path": "lib/index.mjs",
+      "limit": "4 KB"
+    }
+  ]
 }
