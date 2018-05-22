@@ -47,6 +47,7 @@
     "cross-env": "^5.1.5",
     "documentation": "^6.3.3",
     "eslint": "^4.19.1",
+    "eslint-plugin-import": "^2.12.0",
     "eslint-plugin-prettier": "^2.6.0",
     "eslint-plugin-react": "^7.8.2",
     "graphql": "^0.13.2",
@@ -77,14 +78,13 @@
     "*.{json,md}": "prettier -l"
   },
   "eslintIgnore": [
-    "lib"
+    "node_modules",
+    "lib",
+    "example",
+    "!.*"
   ],
   "eslintConfig": {
     "parser": "babel-eslint",
-    "parserOptions": {
-      "sourceType": "script",
-      "ecmaVersion": 2018
-    },
     "env": {
       "es6": true,
       "node": true,
@@ -93,12 +93,12 @@
     "extends": [
       "eslint:recommended",
       "plugin:react/recommended",
-      "prettier",
-      "prettier/react"
+      "plugin:import/recommended"
     ],
     "plugins": [
       "react",
-      "prettier"
+      "prettier",
+      "import"
     ],
     "rules": {
       "require-jsdoc": "warn",
@@ -120,17 +120,7 @@
         }
       ],
       "prettier/prettier": "error"
-    },
-    "overrides": [
-      {
-        "files": [
-          "*.mjs"
-        ],
-        "parserOptions": {
-          "sourceType": "module"
-        }
-      }
-    ]
+    }
   },
   "prettier": {
     "proseWrap": "never",
