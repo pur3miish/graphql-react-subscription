@@ -13,12 +13,15 @@ Work in progress!
 #### Table of Contents
 
 * [GraphQLSocket](#graphqlsocket)
+  * [buildMessage](#buildmessage)
+  * [createOpId](#createopid)
+  * [subscribe](#subscribe)
 * [Consumer](#consumer)
 * [GraphQLSubscribe](#graphqlsubscribe)
 * [MessageObject](#messageobject)
 * [MessageTypes](#messagetypes)
 * [Provider](#provider)
-* [Subscribe](#subscribe)
+* [Subscribe](#subscribe-1)
 * [SubscribeRender](#subscriberender)
 
 ### GraphQLSocket
@@ -27,8 +30,8 @@ GraphQLSocket manages the websocket connections.
 
 **Parameters**
 
-* `wsTimeout` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** specify the ws timeout duration. (optional, default `Infinity`)
-* `websocket` [Websocket instance](https://github.com/websockets/ws)
+* `wsTimeout` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)?** specify the ws timeout duration. (optional, default `Infinity`)
+* `websocket` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** [Websocket instance](https://github.com/websockets/ws)
 
 **Examples**
 
@@ -37,6 +40,44 @@ import { GraphQLSocket } from 'react-graphql-subscription'
 
 const graphqlSocket = new GraphQLSocket()
 ```
+
+#### buildMessage
+
+This factory function builds a [MessageObject](#messageobject).
+
+**Parameters**
+
+* `id` **OpperationId?** Opperation ID for GraphQL Subscription.
+* `type` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** GraphQL-React-Subscription [MessageType](MessageType).
+* `payload` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** The subscription payload.
+  * `payload.query` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** The subscription query string
+  * `payload.variables` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** The subscription arguments.
+
+Returns **[MessageObject](#messageobject)** Built message object.
+
+#### createOpId
+
+Creates an opperation Id.
+
+**Parameters**
+
+* `url` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Websocket url.
+* `query` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Graphql subscription string.
+* `subId` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** GraphQL Subscription ID. (optional, default `null`)
+
+Returns **OpperationId** opperation id string.
+
+#### subscribe
+
+Handles subscriptions.
+
+**Parameters**
+
+* `url` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The ws url.
+* `query` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The GraphQL subscription query.
+* `variables` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** query variables.
+* `keyId` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** The key Id for the callback listener. (optional, default `0`)
+* `callback` **[function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)** callback listener.
 
 ### Consumer
 
@@ -72,7 +113,7 @@ A React component that requests subscription data.
 
 **Parameters**
 
-* `props` **[object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** Component props.
+* `props` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** Component props.
   * `props.graphqlSocket` **[GraphQLSocket](#graphqlsocket)** [GraphQLSocket](#graphqlsocket) instance.
   * `props.query` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** GraphQL subscription query.
   * `props.url` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Websocket server url.
@@ -132,12 +173,12 @@ A React component to manage a GraphQL subscription.
 
 **Parameters**
 
-* `props` **[object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** Component props.
+* `props` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** Component props.
   * `props.url` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** webocket url.
   * `props.query` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** GraphQL subscription query.
   * `props.subscribeOnMount` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Should the subscription open when the component mounts. (optional, default `false`)
+  * `props.keyId` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)?** Use if there are identical duplicate subscribe components.
   * `props.children` **[SubscribeRender](#subscriberender)** Renders the Subscribe status.
-* `keyId` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)?** Use if there are identical duplicate subscribe components.
 
 **Examples**
 
