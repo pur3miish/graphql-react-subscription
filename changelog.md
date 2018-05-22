@@ -26,8 +26,8 @@
    * npm scripts added.
 
 * babelrc:
-  - `babel-plugin-transform-replace-object-assign`
-  - `babel-plugin-transform-object-entries`
+  * `babel-plugin-transform-replace-object-assign`
+  * `babel-plugin-transform-object-entries`
 
 * editorconfig file added.
 
