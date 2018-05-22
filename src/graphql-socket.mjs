@@ -2,6 +2,7 @@ import { isString, _global } from './helpers'
 import fnv1a from 'fnv1a'
 import { MessageTypes } from './message-types'
 
+/*eslint-disable */
 /**
  * GraphQLSocket manages the websocket connections.
  * @param {number} wsTimeout specify the ws timeout duration.
@@ -12,6 +13,7 @@ import { MessageTypes } from './message-types'
  *
  * const graphqlSocket = new GraphQLSocket()
  */
+/*eslint-enable */
 export class GraphQLSocket {
   constructor(wsTimeout = Infinity, websocket) {
     this.ws = websocket || _global.WebSocket || _global.MozWebSocket
