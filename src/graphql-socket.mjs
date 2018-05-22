@@ -155,13 +155,13 @@ export class GraphQLSocket {
   }
 
   /**
-   * Creates an opperation Id.
+   * Creates an operation Id.
    * @private
    * @function
    * @param {string} url Websocket url.
    * @param {string} query Graphql subscription string.
    * @param {string} [subId] GraphQL Subscription ID.
-   * @returns {OpperationId} opperation id string.
+   * @returns {OperationId} operation id string.
    */
   createOpId = (url, query, subId = null) =>
     subId
@@ -175,7 +175,7 @@ export class GraphQLSocket {
    * This factory function builds a {@link MessageObject}.
    * @private
    * @function
-   * @param {OpperationId} [id] Opperation ID for GraphQL Subscription.
+   * @param {OperationId} [id] Operation ID for GraphQL Subscription.
    * @param {string} type GraphQL-React-Subscription {@link MessageType}.
    * @param {Object} [payload] The subscription payload.
    * @param {string} [payload.query] The subscription query string
@@ -224,12 +224,12 @@ export class GraphQLSocket {
 }
 
 /**
- * The opperation ID consists of three parts, delimited by a dot separator.
+ * The operation ID consists of three parts, delimited by a dot separator.
  * @private
  * 1. {@link WebSocketId}
  * 2. {@link QueryId}
  * 3. {@link SubscriptionId}
- * @typedef {string} OpperationId
+ * @typedef {string} OperationId
  * @example
  * `${fnv1a(ws://localhost:3000/subscribe).fnv1a('subscription{notification{id}}').keyId.5af92aeaa40e8f4120d052ea}`
  */
@@ -260,7 +260,7 @@ export class GraphQLSocket {
 /**
  * @private
  * @typedef {Object} MessageObject
- * @type {OpperationId}
+ * @type {OperationId}
  * @type {MessageType}
  * @type {payload}
  */

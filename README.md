@@ -101,13 +101,13 @@ The WebSocket Client and server communication messages.
 * `GQL_CONNECTION_INIT` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Client to server string to initialize connection.
 * `GQL_CONNECTION_ACK` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The server response indicationg the websocket connection has been acknowledged.
 * `GQL_CONNECTION_ERROR` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** A server connection error response.
-* `GQL_CONNECTION_KEEP_ALIVE` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Hearbeat of the ws subscription. See [The HeartBeat of WebSockets](https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API/Writing_WebSocket_servers#Pings_and_Pongs_The_Heartbeat_of_WebSockets)
+* `GQL_CONNECTION_KEEP_ALIVE` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Hearbeat of the ws subscription.
 * `GQL_CONNECTION_TERMINATE` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Client request to terminate the WebSocket connection.
-* `GQL_START` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Client request to start listening to a GraphQL subscription opperation.
+* `GQL_START` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Client request to start listening to a GraphQL subscription operation.
 * `GQL_DATA` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Server response with data.
 * `GQL_ERROR` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Server GraphQL Error response.
-* `GQL_COMPLETE` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Server response indicating GraphQL subscription opperation is complete.
-* `GQL_STOP` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Client request stop listening to a subscription opperation.
+* `GQL_COMPLETE` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Server response indicating GraphQL subscription operation is complete.
+* `GQL_STOP` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Client request stop listening to a subscription operation.
 
 ### Provider
 
