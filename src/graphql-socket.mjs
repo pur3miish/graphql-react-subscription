@@ -5,9 +5,8 @@ import { MessageTypes } from './message-types'
 /*eslint-disable */
 /**
  * GraphQLSocket manages the websocket connections.
- * @param {number} wsTimeout specify the ws timeout duration.
- * @param websocket {@link https://github.com/websockets/ws Websocket instance}
- * @override
+ * @param {number} [wsTimeout] specify the ws timeout duration.
+ * @param {Object} [websocket] {@link https://github.com/websockets/ws Websocket instance}
  * @example
  * import { GraphQLSocket } from 'react-graphql-subscription'
  *
