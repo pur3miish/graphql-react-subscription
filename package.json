@@ -1,6 +1,6 @@
 {
   "name": "graphql-react-subscription",
-  "version": "0.1.5",
+  "version": "0.1.7",
   "description": "A GraphQL subscription client for graphql-react.",
   "license": "MIT",
   "author": "pur3miish",
