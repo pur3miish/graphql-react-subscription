@@ -46,7 +46,7 @@ export const {
 /**
  * A React component that requests subscription data.
  * @class
- * @param {object} props Component props.
+ * @param {Object} props Component props.
  * @param {GraphQLSocket} props.graphqlSocket {@link GraphQLSocket} instance.
  * @param {string} props.query GraphQL subscription query.
  * @param {string} props.url Websocket server url.
@@ -114,7 +114,7 @@ export class GraphQLSubscribe extends React.Component {
 
 /**
  * A React component to manage a GraphQL subscription.
- * @param {object} props Component props.
+ * @param {Object} props Component props.
  * @param {string} props.url webocket url.
  * @param {string} props.query GraphQL subscription query.
  * @param {boolean} [props.subscribeOnMount=false] Should the subscription open when the component mounts.
