@@ -51,7 +51,7 @@ export const {
  * @param {string} props.query GraphQL subscription query.
  * @param {string} props.url Websocket server url.
  * @param {number} [props.keyId] For identical duplicate subscribe components.
- * @param {bool} props.subscribeOnMount should componenet subscribe on mount.
+ * @param {boolean} props.subscribeOnMount should componenet subscribe on mount.
  * @param {RenderQuery} props.children Renders the subscription result.
  */
 export class GraphQLSubscribe extends React.Component {
@@ -115,7 +115,7 @@ export class GraphQLSubscribe extends React.Component {
 /**
  * A React component to manage a GraphQL subscription.
  * @param {Object} props Component props.
- * @param {string} props.url webocket url.
+ * @param {string} props.url websocket url.
  * @param {string} props.query GraphQL subscription query.
  * @param {boolean} [props.subscribeOnMount=false] Should the subscription open when the component mounts.
  * @param {number} [props.keyId] Use if there are identical duplicate subscribe components.
