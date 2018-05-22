@@ -2,7 +2,7 @@
 
 ## next
 
-* Bug fix [issue 1](https://github.com/pur3miish/graphql-react-subscription/issues/1)  .mjs extentions removed from imports.
+* Bug fix [issue 1](https://github.com/pur3miish/graphql-react-subscription/issues/1) .mjs extentions removed from imports.
 * work in progress changelog corrections to older version than 0.1.7
 * bablerc changed to babel.config.js.
 * npmrc file added.
