@@ -178,7 +178,7 @@ export class GraphQLSocket {
    * @private
    * @param {OpperationId} [id] Opperation ID for GraphQL Subscription.
    * @param {string} type GraphQL-React-Subscription {@link MessageType}.
-   * @param {object} [payload] The subscription payload.
+   * @param {Object} [payload] The subscription payload.
    * @param {string} [payload.query] The subscription query string
    * @param {string} [payload.variables] The subscription arguments.
    * @returns {MessageObject} Built message object.
@@ -259,7 +259,7 @@ export class GraphQLSocket {
  */
 
 /**
- * @typedef {object} MessageObject
+ * @typedef {Object} MessageObject
  * @type {OpperationId}
  * @type {MessageType}
  * @type {payload}
