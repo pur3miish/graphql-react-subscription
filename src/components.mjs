@@ -118,7 +118,6 @@ export class GraphQLSubscribe extends React.Component {
  * @param {string} props.url webocket url.
  * @param {string} props.query GraphQL subscription query.
  * @param {boolean} [props.subscribeOnMount=false] Should the subscription open when the component mounts.
- * @param {number} [keyId] Use if there are identical duplicate subscribe components.
  * @param {number} [props.keyId] Use if there are identical duplicate subscribe components.
  * @param {SubscribeRender} props.children Renders the Subscribe status.
  * @returns {ReactElement} React virtual DOM element.
