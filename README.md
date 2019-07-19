@@ -1,3 +1,6 @@
+
+# No longer maintained
+
 # graphql-react-subscription
 
 A GraphQL subscription client for [graphql-react](https://github.com/jaydenseric/graphql-react).
